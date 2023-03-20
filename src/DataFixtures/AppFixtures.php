@@ -4,15 +4,9 @@ namespace App\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
-<<<<<<< HEAD
 
-class AppFixtures extends Fixture
-{
-    public function load(ObjectManager $manager): void
-    {
-        // $product = new Product();
-        // $manager->persist($product);
-=======
+
+
 use App\Entity\Domain;
 use App\Entity\User;
 use App\Entity\Station;
@@ -98,7 +92,7 @@ class AppFixtures extends Fixture
 
             $manager->persist($lift);
         }
->>>>>>> ad9024cb4d2d4bbe63a08c8524c58ffe3705c951
+
 
         $manager->flush();
     }
