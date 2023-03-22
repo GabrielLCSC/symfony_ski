@@ -25,7 +25,7 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
 
-        for ($i = 0; $i <= 5; $i++) {
+        for ($i = 1; $i <= 10; $i++) {
             $user = new User();
             $user->setEmail('user' . $i . '@example.com');
             $user->setName('User ' . $i);
@@ -33,7 +33,11 @@ class AppFixtures extends Fixture
                 $this->passwordHasher->hashPassword($user, 'password')
             );
 
-            if ($i === 1) {
+            if ($i === 1 ) {
+                $user->setRoles(['ROLE_SUPER_ADMIN']);
+            }
+
+            if($i==2 || $i==3 || $i==4){
                 $user->setRoles(['ROLE_ADMIN']);
             }
 
