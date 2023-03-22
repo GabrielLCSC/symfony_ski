@@ -2,7 +2,7 @@
 
 {% extends 'base.html.twig' %}
 
-{% block title %}Station de {{ domain.name }}{% endblock %}
+{% block title %}Toutes les pistes de {{ station.name }}{% endblock %}
 
 {% block body %}
     <style>
@@ -113,17 +113,17 @@
     </style>
 
 
-
-    <div class="flex"><h1>Toutes les stations du {{ domain.name }}</h1><h2><a href="{{ path('app_logout') }}">Déconnexion</a></h2></div>
-    <p class="shesh"><a href="{{ path('app_index') }}">Retour aux domaines</a></p>
+    <div class="flex"><h1>Toutes les pistes de {{ station.name }}</h1>
+    <h2><a href="{{ path('app_logout') }}">Déconnexion</a></h2></div>
+    <p class="shesh"><a href="{{ path('app_domain', {'id': station.domain.id}) }}">Retour aux stations</a></p>
 
 
     <div class="example-wrapper grid">
 
-        {% for station in domain.stations %}
+        {% for slope in station.slopes %}
             <li>
-                <a href="{{ path('app_station', {'id': station.id}) }}">
-                    {{ station.name }}
+                <a href="{{ path('app_slope', {'id': slope.id}) }}">
+                    {{ slope.name }}
                 </a>
             </li>
         {% endfor %}

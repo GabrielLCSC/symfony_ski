@@ -6,8 +6,6 @@
     <style>
         .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
         .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif;
-
-
         }
 
         *{
@@ -63,8 +61,7 @@
 
         .grid{
             display: grid;
-            grid-template-columns:
-                       repeat(1, 40vw);
+            grid-template-columns: repeat(1, 40vw);
             margin: auto;
             gap: 20px;
             justify-content: center;
@@ -111,12 +108,14 @@
         }
 
     </style>
-    <div class="flex"><h1>Toutes les Stations</h1><h2><a href="{{ path('app_logout') }}">Déconnexion</a></h2></div>
+    <div class="flex"><h1>Tous les domaines</h1><h2><a href="{{ path('app_logout') }}">Déconnexion</a></h2></div>
     <div class="example-wrapper">
         <ul class="grid">
             {% for domain in domains %}
                 <li>
-                    <a href="{{ path('app_domain',{'id':domain.id}) }}">{{ domain.name }}</a>
+                    <a href="{{ path('app_domain',{'id':domain.id}) }}">
+                    {{ domain.name }}
+                    </a>
                 </li>
             {% endfor %}
         </ul>
