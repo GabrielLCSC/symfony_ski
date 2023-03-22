@@ -4,6 +4,9 @@ namespace App\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+
+
+
 use App\Entity\Domain;
 use App\Entity\User;
 use App\Entity\Station;
@@ -89,6 +92,7 @@ class AppFixtures extends Fixture
 
             $manager->persist($lift);
         }
+
 
         $manager->flush();
     }
