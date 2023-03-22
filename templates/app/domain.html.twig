@@ -1,10 +1,11 @@
+
+
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AppController!{% endblock %}
+{% block title %}Products in {{ category.name }}{% endblock %}
 
 {% block body %}
     <style>
-        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
         .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif;
 
 
@@ -15,7 +16,8 @@
             padding: 0;
             box-sizing: border-box;
         }
-
+        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
         .flex {
             display: flex;
             justify-content: space-between;
@@ -110,19 +112,35 @@
             cursor: pointer;
         }
 
+
     </style>
-    <div class="flex"><h1>Toutes les Stations</h1><h2><a href="{{ path('app_logout') }}">Déconnexion</a></h2></div>
-    <div class="example-wrapper">
-        <ul class="grid">
-            {% for domain in domains %}
-                <li>
-                    <a href="{{ path('app_domain',{'id':domain.id}) }}">{{ domain.name }}</a>
-                </li>
-            {% endfor %}
-        </ul>
+
+
+
+    <div class="flex"><h1>Stations in {{ domain.name }}</h1><h2><a href="{{ path('app_logout') }}">Déconnexion</a></h2></div>
+    <p class="shesh"><a href="{{ path('app_index') }}">Retour aux domaines</a></p>
+
+
+    <div class=uwu>
+        <a class="sort-link" href="{{ path('app_index', {'id': domain.id}) }}"> <button>Trier du moins cher ⬆️</button></a>
+        <a class="sort-link" href="{{ path('app_index', {'id': domain.id}) }}"><button>Trier du plus cher  ⬇️</button></a>
+    </div>
+
+
+    <div class="example-wrapper grid">
+
+        {% for station in stations %}
+            <li><a href="{{ path('app_product',{'id':product.id}) }}">{{ product.name }}</a></li>
+        {% endfor %}
+
+
+
+
 
 
 
 
     </div>
+
+
 {% endblock %}

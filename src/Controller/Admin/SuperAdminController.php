@@ -14,10 +14,9 @@ use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-
-class DashboardController extends AbstractDashboardController
+class SuperAdminController extends AbstractDashboardController
 {
-    #[Route('/admin', name: 'admin')]
+    #[Route('/super-admin', name: 'super-admin')]
     public function index(): Response
     {
         #return parent::index();
@@ -25,7 +24,7 @@ class DashboardController extends AbstractDashboardController
         // Option 1. You can make your dashboard redirect to some common page of your backend
         //
          $adminUrlGenerator = $this->container->get(AdminUrlGenerator::class);
-         return $this->redirect($adminUrlGenerator->setController(DomainCrudController::class)->generateUrl());
+         return $this->redirect($adminUrlGenerator->setController(Station::class)->generateUrl());
 
         // Option 2. You can make your dashboard redirect to different pages depending on the user
         //
@@ -47,25 +46,13 @@ class DashboardController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
+        yield MenuItem::linkToCrud('Stations', 'fa fa-home',Station::class);
+        yield MenuItem::linkToCrud('Domain', 'fa fa-home',Domain::class);
+        yield MenuItem::linkToCrud('User', 'fa fa-cat', User::class);
+        yield MenuItem::linkToCrud('Slope', 'fa fa-home',Slope::class);
+        yield MenuItem::linkToCrud('Lift', 'fa fa-home',Lift::class);
 
-        yield MenuItem::linkToCrud('Station', 'fa fa-cat',Station::class);
 
         // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
-
-        if ($this->isGranted('ROLE_SUPER-ADMIN')) {
-            yield MenuItem::linkToCrud('Domain', 'fa fa-home',Domain::class);
-            yield MenuItem::linkToCrud('User', 'fa fa-home', User::class);
-            yield MenuItem::linkToCrud('Station', 'fa fa-cat',Station::class);
-            yield MenuItem::linkToCrud('Slope', 'fa fa-home',Slope::class);
-            yield MenuItem::linkToCrud('Lift', 'fa fa-home',Lift::class);
-
-        }
     }
-
-
-
-
-
-
-
 }
