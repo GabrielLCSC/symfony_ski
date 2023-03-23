@@ -37,6 +37,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Station::class)]
     private Collection $stations;
 
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    private ?station $station_id = null;
+
     public function __construct()
     {
         $this->stations = new ArrayCollection();
@@ -150,6 +153,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $station->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getStationId(): ?station
+    {
+        return $this->station_id;
+    }
+
+    public function setStationId(?station $station_id): self
+    {
+        $this->station_id = $station_id;
 
         return $this;
     }

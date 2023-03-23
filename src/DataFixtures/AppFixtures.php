@@ -24,60 +24,115 @@ class AppFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
+        // Create users
+        $superAdmin = new User();
+        $superAdmin->setEmail('admin@example.com');
+        $superAdmin->setName('Admin');
+        $superAdmin->setPassword(
+            $this->passwordHasher->hashPassword($superAdmin, 'password')
+        );
+        $superAdmin->setRoles(['ROLE_SUPER_ADMIN']);
+        $manager->persist($superAdmin);
 
-        for ($i = 1; $i <= 10; $i++) {
-            $user = new User();
-            $user->setEmail('user' . $i . '@example.com');
-            $user->setName('User ' . $i);
-            $user->setPassword(
-                $this->passwordHasher->hashPassword($user, 'password')
-            );
+        $lesSaisiesAdmin = new User();
+        $lesSaisiesAdmin->setEmail('les-saisies@example.com');
+        $lesSaisiesAdmin->setName('Les Saisies Admin');
+        $lesSaisiesAdmin->setPassword(
+            $this->passwordHasher->hashPassword($lesSaisiesAdmin, 'password')
+        );
+        $lesSaisiesAdmin->setRoles(['ROLE_ADMIN']);
+        $manager->persist($lesSaisiesAdmin);
 
-            if ($i === 1 ) {
-                $user->setRoles(['ROLE_SUPER_ADMIN']);
-            }
+        $crestVolandAdmin = new User();
+        $crestVolandAdmin->setEmail('crest-voland@example.com');
+        $crestVolandAdmin->setName('Crest-Voland Admin');
+        $crestVolandAdmin->setPassword(
+            $this->passwordHasher->hashPassword($crestVolandAdmin, 'password')
+        );
+        $crestVolandAdmin->setRoles(['ROLE_ADMIN']);
+        $manager->persist($crestVolandAdmin);
 
-            if($i==2 || $i==3 || $i==4){
-                $user->setRoles(['ROLE_ADMIN']);
-            }
+        $notreDameDeBellecombeAdmin = new User();
+        $notreDameDeBellecombeAdmin->setEmail('notre-dame@example.com');
+        $notreDameDeBellecombeAdmin->setName('Notre-Dame Admin');
+        $notreDameDeBellecombeAdmin->setPassword(
+            $this->passwordHasher->hashPassword($notreDameDeBellecombeAdmin, 'password')
+        );
+        $notreDameDeBellecombeAdmin->setRoles(['ROLE_ADMIN']);
+        $manager->persist($notreDameDeBellecombeAdmin);
 
-            $manager->persist($user);
-        }
+        $prazSurArlyAdmin = new User();
+        $prazSurArlyAdmin->setEmail('praz-sur-arly@example.com');
+        $prazSurArlyAdmin->setName('Praz-sur-Arly Admin');
+        $prazSurArlyAdmin->setPassword(
+            $this->passwordHasher->hashPassword($prazSurArlyAdmin, 'password')
+        );
+        $prazSurArlyAdmin->setRoles(['ROLE_ADMIN']);
+        $manager->persist($prazSurArlyAdmin);
 
-        for($i = 0; $i <=2; $i++) {
-            $domain = new Domain();
-            $domain->setName('Domain ' . $i);
-            $domain->setLogo('https://picsum.photos/200/300');
-            $manager->persist($domain);
-        }
+        $flumetAdmin = new User();
+        $flumetAdmin->setEmail('flumet@example.com');
+        $flumetAdmin->setName('Flumet Admin');
+        $flumetAdmin->setPassword(
+            $this->passwordHasher->hashPassword($flumetAdmin, 'password')
+        );
+        $flumetAdmin->setRoles(['ROLE_ADMIN']);
+        $manager->persist($flumetAdmin);
 
-        $manager->flush();
 
-        $domain = $manager->getRepository(Domain::class);
-        $domains = $domain->findAll();
-        $user = $manager->getRepository(User::class);
-        $users = $user->findAll();
+        // Create domains
+        $espaceDiamant = new Domain();
+        $espaceDiamant->setName('Espace Diamant');
+        $espaceDiamant->setLogo('https://picsum.photos/200/300');
+        $manager->persist($espaceDiamant);
 
-        for($i = 0; $i <= 4; $i++) {
-            $station = new Station();
-            $station->setName('Station ' . $i);
-            $station->setLogo('https://picsum.photos/200/300');
-            $station->setDomain($domains[rand(0, 2)]);
-            $station->setUser($users[rand(0, 5)]);
-            $manager->persist($station);
-        }
+        // Create stations
+        $station1 = new Station();
+        $station1->setName('Les Saisies');
+        $station1->setLogo('https://example.com/les-saisies-logo.png');
+        $station1->setDomain($espaceDiamant);
+        $station1->setUser($lesSaisiesAdmin);
+        $manager->persist($station1);
+
+        $station2 = new Station();
+        $station2->setName('Crest-Voland Cohennoz');
+        $station2->setLogo('https://example.com/crest-voland-cohennoz-logo.png');
+        $station2->setDomain($espaceDiamant);
+        $station2->setUser($crestVolandAdmin);
+        $manager->persist($station2);
+
+        $station3 = new Station();
+        $station3->setName('Notre-Dame-de-Bellecombe');
+        $station3->setLogo('https://example.com/notre-dame-de-bellecombe-logo.png');
+        $station3->setDomain($espaceDiamant);
+        $station3->setUser($notreDameDeBellecombeAdmin);
+        $manager->persist($station3);
+
+        $station4 = new Station();
+        $station4->setName('Praz-sur-Arly');
+        $station4->setLogo('https://example.com/praz-sur-arly-logo.png');
+        $station4->setDomain($espaceDiamant);
+        $station4->setUser($prazSurArlyAdmin);
+        $manager->persist($station4);
+
+        $station5 = new Station();
+        $station5->setName('Flumet');
+        $station5->setLogo('https://example.com/flumet-logo.png');
+        $station5->setDomain($espaceDiamant);
+        $station5->setUser($flumetAdmin);
+        $manager->persist($station5);
 
         $manager->flush();
 
         $station = $manager->getRepository(Station::class);
         $stations = $station->findAll();
 
-        for($i = 0; $i <= 3; $i++) {
+        for($i = 0; $i <= 50; $i++) {
             $slope = new Slope();
-            $slope->setName('Slope ' . $i);
-            $slope->setStation($stations[rand(0, 3)]);
-            $slope->setType(['alpin', 'nordic'][rand(0, 1)]);
-            $slope->setLevel(['red', 'blue', 'black', 'green'][rand(0, 3)]);
+            $slope->setName('Piste ' . $i);
+            $slope->setStation($stations[rand(0, 4)]);
+            $slope->setType(['Alpine', 'Nordique'][rand(0, 1)]);
+            $slope->setLevel(['Rouge', 'Blue', 'Noir', 'Verte'][rand(0, 3)]);
             $slope->setIsOpen([true, false][rand(0, 1)]);
             $slope->setMessage('Message ' . $i);
 
@@ -86,17 +141,16 @@ class AppFixtures extends Fixture
 
         $manager->flush();
 
-        for($i = 0; $i <= 3; $i++) {
+        for($i = 0; $i <= 30; $i++) {
             $lift = new Lift();
-            $lift->setName('Lift ' . $i);
-            $lift->setStation($stations[rand(0, 3)]);
-            $lift->setType(['gondola', 'chairlift', 'draglift', 't-bar'][rand(0, 3)]);
+            $lift->setName('Remontée ' . $i);
+            $lift->setStation($stations[rand(0, 4)]);
+            $lift->setType(['Télésièges', 'Télécabines', 'Téléski', 'Télécorde'][rand(0, 3)]);
             $lift->setIsOpen([true, false][rand(0, 1)]);
             $lift->setMessage('Message ' . $i);
 
             $manager->persist($lift);
         }
-
 
         $manager->flush();
     }

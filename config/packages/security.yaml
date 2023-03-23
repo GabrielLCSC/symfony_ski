@@ -34,10 +34,9 @@ security:
     access_control:
         - { path: ^/login, roles: PUBLIC_ACCESS }
         - { path: ^/register, roles: PUBLIC_ACCESS }
-        - { path: ^/admin, roles: ROLE_ADMIN }
-        - { path: ^/super-admin, roles: ROLE_SUPER_ADMIN}
+        # - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/admin, roles: ROLE_SUPER_ADMIN }
         - { path: ^/, roles: ROLE_USER }
-
 when@test:
     security:
         password_hashers:

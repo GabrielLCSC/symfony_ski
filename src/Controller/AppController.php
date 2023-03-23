@@ -7,6 +7,7 @@ namespace App\Controller;
 use App\Repository\DomainRepository;
 use App\Repository\StationRepository;
 use App\Repository\SlopeRepository;
+use App\Repository\LiftRepository;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;

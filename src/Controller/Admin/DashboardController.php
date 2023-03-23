@@ -20,23 +20,20 @@ class DashboardController extends AbstractDashboardController
     #[Route('/admin', name: 'admin')]
     public function index(): Response
     {
-        #return parent::index();
-
-        // Option 1. You can make your dashboard redirect to some common page of your backend
-        //
-         $adminUrlGenerator = $this->container->get(AdminUrlGenerator::class);
-         return $this->redirect($adminUrlGenerator->setController(DomainCrudController::class)->generateUrl());
-
-        // Option 2. You can make your dashboard redirect to different pages depending on the user
-        //
-        // if ('jane' === $this->getUser()->getUsername()) {
-        //     return $this->redirect('...');
-        // }
-
-        // Option 3. You can render some custom template to display a proper dashboard with widgets, etc.
-        // (tip: it's easier if your template extends from @EasyAdmin/page/content.html.twig)
-        //
-        // return $this->render('some/path/my-dashboard.html.twig');
+        // Check if the user has the ROLE_SUPER_ADMIN role
+        if ($this->isGranted('ROLE_SUPER_ADMIN')) {
+            // If yes, redirect to the list of Domain entities
+            $adminUrlGenerator = $this->container->get(AdminUrlGenerator::class);
+            return $this->redirect($adminUrlGenerator->setController(DomainCrudController::class)->generateUrl());
+        } else if ($this->isGranted('ROLE_ADMIN')) {
+            // If the user has the ROLE_ADMIN role, redirect to their own Station entity
+            $user = $this->getUser();
+            $adminUrlGenerator = $this->container->get(AdminUrlGenerator::class);
+            return $this->redirect($adminUrlGenerator->setController(StationCrudController::class)->setAction('detail')->setEntityId($user->getStation()->getId())->generateUrl());
+        } else {
+            // If the user doesn't have the required roles, show an error message
+            throw $this->createAccessDeniedException();
+        }
     }
 
     public function configureDashboard(): Dashboard
@@ -47,25 +44,20 @@ class DashboardController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
-
-        yield MenuItem::linkToCrud('Station', 'fa fa-cat',Station::class);
-
-        // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
-
-        if ($this->isGranted('ROLE_SUPER-ADMIN')) {
-            yield MenuItem::linkToCrud('Domain', 'fa fa-home',Domain::class);
+        // Define the menu items for the ROLE_SUPER_ADMIN role
+        if ($this->isGranted('ROLE_SUPER_ADMIN')) {
+            yield MenuItem::linkToCrud('Domain', 'fa fa-home', Domain::class);
+            yield MenuItem::linkToCrud('Station', 'fa fa-cat', Station::class);
             yield MenuItem::linkToCrud('User', 'fa fa-home', User::class);
-            yield MenuItem::linkToCrud('Station', 'fa fa-cat',Station::class);
-            yield MenuItem::linkToCrud('Slope', 'fa fa-home',Slope::class);
-            yield MenuItem::linkToCrud('Lift', 'fa fa-home',Lift::class);
+            yield MenuItem::linkToCrud('Slope', 'fa fa-home', Slope::class);
+            yield MenuItem::linkToCrud('Lift', 'fa fa-home', Lift::class);
+        }
 
+        // Define the menu item for the ROLE_ADMIN role
+        if ($this->isGranted('ROLE_ADMIN')) {
+            $user = $this->getUser();
+            yield MenuItem::linkToRoute('My Station', 'fa fa-station', 'admin', ['entity' => 'Station', 'action' => 'detail', 'id' => $user->getStation()->getId()]);
         }
     }
-
-
-
-
-
-
 
 }

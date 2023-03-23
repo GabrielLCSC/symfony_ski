@@ -62,6 +62,17 @@
         <li>Message: {{ slope.message }}</li>
     </ul>
 
+    {# <h2>Les remontées de la station : {{ lift.station.name }} </h2>
+    <ul>
+        {% for l in lift.station.lifts %}
+            {% if l.id != lift.id %}
+                <li>
+                    {{ l.name }}
+                </li>
+            {% endif %}
+        {% endfor %}
+    </ul> #}
+
     <h2>Autre pistes de la station : {{ slope.station.name }} </h2>
     <ul>
         {% for s in slope.station.slopes %}
