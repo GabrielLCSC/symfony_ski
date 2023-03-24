@@ -136,8 +136,8 @@ class AppFixtures extends Fixture
             $slope->setIsOpen([true, false][rand(0, 1)]);
             $slope->setMessage('Message ' . $i);
             $slope->setIsSeason([true, false][rand(0, 1)]);
-            $slope->setOpening('08:30:01');
-            $slope->setClosing('2823820820472424242');
+            $slope->setOpening(new \DateTime('08:30:01'));
+            $slope->setClosing(new \DateTime('08:30:01'));
 
             $manager->persist($slope);
         }
@@ -152,8 +152,8 @@ class AppFixtures extends Fixture
             $lift->setIsOpen([true, false][rand(0, 1)]);
             $lift->setMessage('Message ' . $i);
             $lift->setIsSeason([true, false][rand(0, 1)]);
-            $lift->setOpening('08:30:01');
-            $lift->setClosing('18:30:01');
+            $lift->setOpening(new \DateTime('08:30:01'));
+            $lift->setClosing(new \DateTime('18:30:01'));
 
             $manager->persist($lift);
         }
