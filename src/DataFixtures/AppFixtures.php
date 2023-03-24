@@ -137,7 +137,7 @@ class AppFixtures extends Fixture
             $slope->setMessage('Message ' . $i);
             $slope->setIsSeason([true, false][rand(0, 1)]);
             $slope->setOpening(new \DateTime('08:30:01'));
-            $slope->setClosing(new \DateTime('08:30:01'));
+            $slope->setClosing(new \DateTime('18:30:01'));
 
             $manager->persist($slope);
         }
