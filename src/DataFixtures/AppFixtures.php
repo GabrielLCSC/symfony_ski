@@ -135,6 +135,9 @@ class AppFixtures extends Fixture
             $slope->setLevel(['Rouge', 'Blue', 'Noir', 'Verte'][rand(0, 3)]);
             $slope->setIsOpen([true, false][rand(0, 1)]);
             $slope->setMessage('Message ' . $i);
+            $slope->setIsSeason([true, false][rand(0, 1)]);
+            $slope->setOpening('08:30:01');
+            $slope->setClosing('2823820820472424242');
 
             $manager->persist($slope);
         }
@@ -148,6 +151,9 @@ class AppFixtures extends Fixture
             $lift->setType(['Télésièges', 'Télécabines', 'Téléski', 'Télécorde'][rand(0, 3)]);
             $lift->setIsOpen([true, false][rand(0, 1)]);
             $lift->setMessage('Message ' . $i);
+            $lift->setIsSeason([true, false][rand(0, 1)]);
+            $lift->setOpening('08:30:01');
+            $lift->setClosing('18:30:01');
 
             $manager->persist($lift);
         }
