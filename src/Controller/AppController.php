@@ -56,7 +56,7 @@ class AppController extends AbstractController
     // }
 
     #[Route('/station/{id}', name: 'app_station')]
-    public function station($id, StationRepository $stationRepository, LiftRepository $liftRepository): Response
+    public function station($id, StationRepository $stationRepository, LiftRepository $liftRepository,DomainRepository $domainRepository): Response
     {
         $station = $stationRepository->find($id);
 
@@ -69,6 +69,7 @@ class AppController extends AbstractController
         $lifts = $liftRepository->findBy(['station' => $station]);
 
         return $this->render('app/station.html.twig', [
+            'domains' => $domainRepository->findAll(),
             'station' => $station,
             'lift' => $lift,
             'lifts' => $lifts,
