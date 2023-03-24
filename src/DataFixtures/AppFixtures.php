@@ -127,37 +127,39 @@ class AppFixtures extends Fixture
         $station = $manager->getRepository(Station::class);
         $stations = $station->findAll();
 
-        for($i = 0; $i <= 50; $i++) {
+        for ($i = 0; $i <= 50; $i++) {
             $slope = new Slope();
             $slope->setName('Piste ' . $i);
             $slope->setStation($stations[rand(0, 4)]);
             $slope->setType(['Alpine', 'Nordique'][rand(0, 1)]);
             $slope->setLevel(['Rouge', 'Blue', 'Noir', 'Verte'][rand(0, 3)]);
-            $slope->setIsOpen([true, false][rand(0, 1)]);
+            $isSeason = [true, false][rand(0, 1)];
+            $slope->setIsSeason($isSeason);
+            $slope->setIsOpen($isSeason ? [true, false][rand(0, 1)] : false);
             $slope->setMessage('Message ' . $i);
-            $slope->setIsSeason([true, false][rand(0, 1)]);
             $slope->setOpening(new \DateTime('08:30:01'));
             $slope->setClosing(new \DateTime('08:30:01'));
-
+        
             $manager->persist($slope);
         }
-
+        
         $manager->flush();
-
-        for($i = 0; $i <= 30; $i++) {
+        
+        for ($i = 0; $i <= 30; $i++) {
             $lift = new Lift();
             $lift->setName('Remontée ' . $i);
             $lift->setStation($stations[rand(0, 4)]);
             $lift->setType(['Télésièges', 'Télécabines', 'Téléski', 'Télécorde'][rand(0, 3)]);
-            $lift->setIsOpen([true, false][rand(0, 1)]);
+            $isSeason = [true, false][rand(0, 1)];
+            $lift->setIsSeason($isSeason);
+            $lift->setIsOpen($isSeason ? [true, false][rand(0, 1)] : false);
             $lift->setMessage('Message ' . $i);
-            $lift->setIsSeason([true, false][rand(0, 1)]);
             $lift->setOpening(new \DateTime('08:30:01'));
             $lift->setClosing(new \DateTime('18:30:01'));
-
+        
             $manager->persist($lift);
         }
-
+        
         $manager->flush();
     }
 }

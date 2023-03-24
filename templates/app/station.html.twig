@@ -116,7 +116,7 @@
     <div class="flex"><h1>Toutes les pistes de {{ station.name }}</h1>
     <h2><a href="{{ path('app_logout') }}">Déconnexion</a></h2></div>
     <p class="shesh"><a href="{{ path('app_domain', {'id': station.domain.id}) }}">Retour aux stations</a></p>
-
+    
 
     <div class="example-wrapper grid">
 
@@ -128,7 +128,33 @@
             </li>
         {% endfor %}
 
+    <h2>Les remontées de la station : {{ lift.station.name }} </h2>
+        <ul>
+            {% for l in lift.station.lifts %}
+                {% if l.id != lift.id %}
+                    <li>{{ l.name }}</li>
+                    <li>Type: {{ l.type }}</li>
+                    {% if l.isopen %}
+                        <li>Remontée Ouverte: Oui</li>
+                    {% else %}
+                        <li>Remontée Ouverte: Non</li>
+                    {% endif %}
+                    <li>Message: {{ l.message }}</li>
+                    {% if l.isseason %}
+                        <li>Saison : Saison des ski</li>
+                        {% if l.isopen %}
+                            <li>Ouvert de {{ l.opening|date('H:i') }} à {{ l.closing|date('H:i') }}</li>
+                        {% else %}
+                            <li>Fermé</li>
+                        {% endif %}
+                    {% else %}
+                        <li>Saison : Saison hors ski</li>
+                        <li>Fermé</li>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+        </ul>
+        
     </div>
-
 
 {% endblock %}
