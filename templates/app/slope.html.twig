@@ -58,20 +58,24 @@
     <ul>
         <li>Type: {{ slope.type }}</li>
         <li>Niveau: {{ slope.level }}</li>
-        <li>Ouvert: {{ slope.isopen }}</li>
+        {% if slope.isopen %}
+            <li>Piste Ouverte: Oui</li>
+        {% else %}
+            <li>Piste Ouverte: Non</li>
+        {% endif %}
         <li>Message: {{ slope.message }}</li>
-    </ul>
-
-    {# <h2>Les remontées de la station : {{ lift.station.name }} </h2>
-    <ul>
-        {% for l in lift.station.lifts %}
-            {% if l.id != lift.id %}
-                <li>
-                    {{ l.name }}
-                </li>
+        {% if slope.isseason %}
+            <li>Saison : Saison des ski</li>
+            {% if slope.isopen %}
+                <li>Ouvert de {{ slope.opening|date('H:i') }} à {{ slope.closing|date('H:i') }}</li>
+            {% else %}
+                <li>Fermé</li>
             {% endif %}
-        {% endfor %}
-    </ul> #}
+        {% else %}
+            <li>Saison : Saison hors ski</li>
+            <li>Fermé</li>
+        {% endif %}
+    </ul>
 
     <h2>Autre pistes de la station : {{ slope.station.name }} </h2>
     <ul>
