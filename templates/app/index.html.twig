@@ -4,110 +4,72 @@
 
 {% block body %}
     <style>
-        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif;
-        }
-
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
         *{
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        .flex {
+        header{
+            width:100%;
+            display:flex;
+            justify-content:center;
+            align-items: center;
+            box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.39);
+
+
+
+
+        }
+
+        header>img{
+            width: fit-content;
+            height: fit-content;
+        }
+
+        header>p{
             display: flex;
-            justify-content: space-between;
-            background-color: #151D53;
-            padding: 1rem;
-            border-bottom: #0dcaf0;
-        }
-
-        h1{
-            color: #efd01d;
-            margin-left: 40px;
-        }
-        h2{
-            background-color: red;
-            color: white;
-            padding: 10px 30px;
-            border-radius: 30px;
-
-        }
-        h2>a{
-            color: white;
-            text-decoration: none;
-        }
-        h2:hover{
-            transform: scale(1.2,1.2);
-            transition: all 0.3s ease 0s;
-        }
-
-        .ul1{
-            margin: 40px;
-            background-color: #d9be34;
-            color: #0f172a;
-            padding: 1rem;
-            width: fit-content;
-            margin: auto;
-
-
-
-        }
-
-        .ul1>li{
-            font-size: 1.3em;
-            list-style-type: none;
-        }
-
-        .grid{
-            display: grid;
-            grid-template-columns: repeat(1, 40vw);
-            margin: auto;
-            gap: 20px;
             justify-content: center;
-            margin-top: 40px;
+            align-items: center;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 40px;
+            color: #023E8A;
 
         }
 
-        .grid>li{
-            list-style-type: none;
-            background-color: #151D53;
-            padding: 1rem;
-
-        }
-        .grid>li>a{
-            display: block;
-            text-decoration: none;
-            color: white;
+        .fullscreen-bg {
+            background: url({{ asset('uploads/background.png') }}) no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100%;
         }
 
-        .shesh{
-            margin: 1rem;
-            background-color: gray;
-            padding: 1rem;
-            border-radius: 30px;
-            width: fit-content;
-        }
-        .shesh>a{
-            text-decoration: none;
-            color: white;
-
-        }
-
-        .uwu{
-            margin: 1rem;
-
-        }
-
-        .uwu>a>button{
-            background-color: lightblue;
-            border: none;
-            padding: 1rem;
-            border-radius: 30px;
-            cursor: pointer;
+        .centered-text {
+            text-align: center;
+            color: #fff;
         }
 
     </style>
+    <header>
+    <p><img src='{{ asset('uploads/logo.png') }}' alt='logo'>Rhône-Alpes</p>
+
+    </header>
+
+    <div class="fullscreen-bg">
+        <div class="centered-text">
+            <h1>Ski, plaisir et montagnes vous attendent !</h1>
+        </div>
+    </div>
+
+
+
+
+
+
     <div class="flex"><h1>Tous les domaines</h1><h2><a href="{{ path('app_logout') }}">Déconnexion</a></h2></div>
     <div class="example-wrapper">
         <ul class="grid">
