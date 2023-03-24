@@ -3,6 +3,36 @@
 {% block title %}Hello AppController!{% endblock %}
 
 {% block body %}
+<script type="text/javascript" src="https://click123.ca/dist/js/snow.js"></script>
+<body>
+
+
+
+<script src="script.js"></script>
+<script>
+    function fadeOutSnowflakes() {
+        // Parcourir les éléments avec un ID allant de "dot0" à "dot9"
+        for (let i = 0; i < 10; i++) {
+            const dotId = 'dot' + i;
+            const dot = document.getElementById(dotId);
+
+            // Si l'élément existe, appliquer une transition de fondu
+            if (dot) {
+                dot.style.transition = 'opacity 1s';
+                dot.style.opacity = 0;
+
+                // Supprimer l'élément après la fin de la transition
+                setTimeout(function() {
+                    dot.parentNode.removeChild(dot);
+                }, 1000);
+            }
+        }
+    }
+
+    // Appeler la fonction après 2 secondes
+    setTimeout(fadeOutSnowflakes, 2000);
+
+</script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;800&display=swap');
         *{
