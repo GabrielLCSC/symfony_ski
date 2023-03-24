@@ -29,7 +29,7 @@ class DashboardController extends AbstractDashboardController
             // If the user has the ROLE_ADMIN role, redirect to their own Station entity
             $user = $this->getUser();
             $adminUrlGenerator = $this->container->get(AdminUrlGenerator::class);
-            return $this->redirect($adminUrlGenerator->setController(StationCrudController::class)->setAction('detail')->setEntityId($user->getStation()->getId())->generateUrl());
+            // return $this->redirect($adminUrlGenerator->setController(StationCrudController::class)->setAction('detail')->setEntityId($user->getStation()->getId())->generateUrl());
         } else {
             // If the user doesn't have the required roles, show an error message
             throw $this->createAccessDeniedException();
@@ -56,7 +56,7 @@ class DashboardController extends AbstractDashboardController
         // Define the menu item for the ROLE_ADMIN role
         if ($this->isGranted('ROLE_ADMIN')) {
             $user = $this->getUser();
-            yield MenuItem::linkToRoute('My Station', 'fa fa-station', 'admin', ['entity' => 'Station', 'action' => 'detail', 'id' => $user->getStation()->getId()]);
+            // yield MenuItem::linkToRoute('My Station', 'fa fa-station', 'admin', ['entity' => 'Station', 'action' => 'detail', 'id' => $user->getStation()->getId()]);
         }
     }
 

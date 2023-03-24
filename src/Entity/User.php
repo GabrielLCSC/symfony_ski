@@ -6,12 +6,10 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -36,9 +34,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Station::class)]
     private Collection $stations;
-
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    private ?station $station_id = null;
 
     public function __construct()
     {
@@ -153,18 +148,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $station->setUser(null);
             }
         }
-
-        return $this;
-    }
-
-    public function getStationId(): ?station
-    {
-        return $this->station_id;
-    }
-
-    public function setStationId(?station $station_id): self
-    {
-        $this->station_id = $station_id;
 
         return $this;
     }
