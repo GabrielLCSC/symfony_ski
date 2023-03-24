@@ -4,19 +4,28 @@
 
 {% block body %}
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;800&display=swap');
         *{
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
         }
 
         header{
             width:100%;
             display:flex;
-            justify-content:center;
+            justify-content:space-around;
             align-items: center;
             box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.39);
+
+
+
+
+
+
+
+
 
 
         }
@@ -34,6 +43,29 @@
             font-size: 40px;
             color: #023E8A;
 
+
+        }
+
+
+        header>h2{
+            background-color: #023E8A;
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 25px;
+            transition: 0.3s all ease 0s;
+
+        }
+
+        header>h2:hover{
+
+            transition: 0.3s all ease 0s;
+            letter-spacing: 2px;
+            opacity: 0.8;
+        }
+
+        header>h2>a{
+            color: white;
+            text-decoration: none;
         }
 
         .fullscreen-bg {
@@ -42,24 +74,96 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            height: 88vh;
             width: 100%;
+
         }
 
         .centered-text {
             text-align: center;
             color: #fff;
+            font-weight: 800;
+            text-shadow: 2px 3px 2px #000000;
+
         }
+
+        .card{
+            width: 332px;
+            height: 360px;
+            border-radius: 20px;
+            box-shadow: -3px 7px 22px rgba(0, 0, 0, 0.25);
+            padding:1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            margin: 2rem;
+
+        }
+
+
+
+        .card>div>img{
+            width: 304px;
+            height: 172px;
+            border-radius: 20px;
+
+
+        }
+
+        .card>h1{
+            font-weight: 500;
+            color:#023E8A;
+            font-size: 20px;
+            padding: 1rem;
+
+
+        }
+
+        .button{
+            width: 300px;
+        }
+
+        .card>div>a>button{
+            background:#00B4D8;
+            padding: 1rem;
+            color: white;
+            font-weight: 700;
+            border-radius: 20px;
+            border: none;
+            width: 80%;
+            margin-top: 30px;
+            margin-left: 30px;
+            font-size: 20px;
+
+
+        }
+
+    button{
+        cursor:pointer;
+        transition: 0.3s all ease 0s;
+    }
+
+    button:hover{
+        transition: 0.3s all ease 0s;
+        letter-spacing: 2px;
+        opacity: 0.8;
+    }
+
+
 
     </style>
     <header>
+        <div></div>
     <p><img src='{{ asset('uploads/logo.png') }}' alt='logo'>Rhône-Alpes</p>
+        <h2><a href="{{ path('app_logout') }}">Déconnexion</a></h2>
 
     </header>
 
     <div class="fullscreen-bg">
         <div class="centered-text">
             <h1>Ski, plaisir et montagnes vous attendent !</h1>
+
         </div>
     </div>
 
@@ -68,20 +172,24 @@
 
 
 
-    <div class="flex"><h1>Tous les domaines</h1><h2><a href="{{ path('app_logout') }}">Déconnexion</a></h2></div>
-    <div class="example-wrapper">
         <ul class="grid">
             {% for domain in domains %}
-                <li>
-                    <a href="{{ path('app_domain',{'id':domain.id}) }}">
-                    {{ domain.name }}
-                    </a>
-                </li>
+                <div class="card">
+                    <div><img src="{{ asset('uploads/background.png') }}" alt></div>
+                    <h1>{{ domain.name }}</h1>
+                        <div class="button"><a href="{{ path('app_domain',{'id':domain.id}) }}"><button>Voir plus</button></a></div>
+
+                </div>
+
+
+
             {% endfor %}
         </ul>
 
 
 
 
-    </div>
+
+
+
 {% endblock %}
