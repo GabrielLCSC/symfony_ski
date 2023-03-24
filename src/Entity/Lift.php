@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\LiftRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: LiftRepository::class)]
@@ -28,6 +29,15 @@ class Lift
     #[ORM\ManyToOne(inversedBy: 'lifts')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Station $station = null;
+
+    #[ORM\Column]
+    private ?bool $isSeason = null;
+
+    #[ORM\Column(type: Types::TIME_MUTABLE)]
+    private ?\DateTimeInterface $opening = null;
+
+    #[ORM\Column(type: Types::TIME_MUTABLE)]
+    private ?\DateTimeInterface $closing = null;
 
     public function getId(): ?int
     {
@@ -90,6 +100,42 @@ class Lift
     public function setStation(?Station $station): self
     {
         $this->station = $station;
+
+        return $this;
+    }
+
+    public function isIsSeason(): ?bool
+    {
+        return $this->isSeason;
+    }
+
+    public function setIsSeason(bool $isSeason): self
+    {
+        $this->isSeason = $isSeason;
+
+        return $this;
+    }
+
+    public function getOpening(): ?\DateTimeInterface
+    {
+        return $this->opening;
+    }
+
+    public function setOpening(\DateTimeInterface $opening): self
+    {
+        $this->opening = $opening;
+
+        return $this;
+    }
+
+    public function getClosing(): ?\DateTimeInterface
+    {
+        return $this->closing;
+    }
+
+    public function setClosing(\DateTimeInterface $closing): self
+    {
+        $this->closing = $closing;
 
         return $this;
     }
