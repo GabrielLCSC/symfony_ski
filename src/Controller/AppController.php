@@ -41,8 +41,22 @@ class AppController extends AbstractController
         ]);
     }
 
+    // #[Route('/station/{id}', name: 'app_station')]
+    // public function station($id, StationRepository $stationRepository): Response
+    // {
+    //     $station = $stationRepository->find($id);
+
+    //     if (!$station) {
+    //         throw $this->createNotFoundException('Station not found');
+    //     }
+
+    //     return $this->render('app/station.html.twig', [
+    //         'station' => $station,
+    //     ]);
+    // }
+
     #[Route('/station/{id}', name: 'app_station')]
-    public function station($id, StationRepository $stationRepository): Response
+    public function station($id, StationRepository $stationRepository, LiftRepository $liftRepository): Response
     {
         $station = $stationRepository->find($id);
 
@@ -50,13 +64,21 @@ class AppController extends AbstractController
             throw $this->createNotFoundException('Station not found');
         }
 
+        $lift = $station->getLifts()[0]; // Assuming you want to display lifts of the first slope in the station
+
+        $lifts = $liftRepository->findBy(['station' => $station]);
+
         return $this->render('app/station.html.twig', [
             'station' => $station,
+            'lift' => $lift,
+            'lifts' => $lifts,
         ]);
     }
 
+
     #[Route('/slope/{id}', name: 'app_slope')]
-    public function slope($id, SlopeRepository $slopeRepository): Response
+
+    public function slope($id, SlopeRepository $slopeRepository, DomainRepository $domainRepository): Response
     {
         $slope = $slopeRepository->find($id);
 
@@ -65,6 +87,7 @@ class AppController extends AbstractController
         }
 
         return $this->render('app/slope.html.twig', [
+            'domains' => $domainRepository->findAll(),
             'slope' => $slope,
         ]);
     }

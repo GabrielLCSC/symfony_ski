@@ -4,6 +4,37 @@
 
 {% block body %}
 <style>
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Poppins', sans-serif;
+    }
+    header{
+        width:100%;
+        display:flex;
+        justify-content:center;
+        align-items: center;
+        box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.39);
+
+
+    }
+
+    header>img{
+        width: fit-content;
+        height: fit-content;
+    }
+
+    header>p{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 40px;
+        color: #023E8A;
+
+    }
+
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 
@@ -47,10 +78,50 @@
         color: white;
 
     }
+    .logo {
+        width: 100px;
+        object-fit: contain;
+    }
+    footer {
+        display: flex;
+        justify-content: space-between;
+        background-color: #151D53;
+        padding: 1rem;
+        border-top: #0dcaf0;
+    }
+    footer>div>p {
+        color: white;
+        margin: 1rem;
+    }
+    footer>ul>li {
+        list-style: none;
+        color: white;
+        margin: 1rem;
+    }
+    footer>ul>li>a {
+        text-decoration: none;
+        color: white;
+    }
+
+    @media screen and (max-width: 768px) {
+        footer {
+            flex-wrap: wrap;
+            flex-direction: column;
+            align-items: center;
+        }
+        footer > ul, footer > div {
+            width: 100%;
+            text-align: center;
+        }
+    }
+
 </style>
 
 
-    <div class="flex"><h1> Piste : {{ slope.name }} </h1></h1>
+    <header>
+        <p><img src='{{ asset('uploads/logo.png') }}' alt='logo'>Rhône-Alpes</p>
+
+    </header>
     <h2><a href="{{ path('app_logout') }}">Déconnexion</a></h2></div>
     <p class="shesh"><a href="{{ path('app_station', {'id': slope.station.id}) }}">Retour aux pistes</a></p>
 
@@ -58,20 +129,24 @@
     <ul>
         <li>Type: {{ slope.type }}</li>
         <li>Niveau: {{ slope.level }}</li>
-        <li>Ouvert: {{ slope.isopen }}</li>
+        {% if slope.isopen %}
+            <li>Piste Ouverte: Oui</li>
+        {% else %}
+            <li>Piste Ouverte: Non</li>
+        {% endif %}
         <li>Message: {{ slope.message }}</li>
-    </ul>
-
-    {# <h2>Les remontées de la station : {{ lift.station.name }} </h2>
-    <ul>
-        {% for l in lift.station.lifts %}
-            {% if l.id != lift.id %}
-                <li>
-                    {{ l.name }}
-                </li>
+        {% if slope.isseason %}
+            <li>Saison : Saison des ski</li>
+            {% if slope.isopen %}
+                <li>Ouvert de {{ slope.opening|date('H:i') }} à {{ slope.closing|date('H:i') }}</li>
+            {% else %}
+                <li>Fermé</li>
             {% endif %}
-        {% endfor %}
-    </ul> #}
+        {% else %}
+            <li>Saison : Saison hors ski</li>
+            <li>Fermé</li>
+        {% endif %}
+    </ul>
 
     <h2>Autre pistes de la station : {{ slope.station.name }} </h2>
     <ul>
@@ -87,4 +162,29 @@
     </ul>
 
 </div>
+    <footer>
+        <img class="logo" src="/uploads/logo.png" alt="">
+        <ul>
+            {% for domain in domains %}
+                <li>
+                    <a href="{{ path('app_domain',{'id':domain.id}) }}">
+                        {{ domain.name }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+        <div>
+            <p>INFORMATIONS LEGALES</p>
+            <p>Formulaire réglementaire d’information sur les droits des voyageurs</p>
+            <p>Conditions de vente et Erratum</p>
+            <p>Charte de Protection des Données</p>
+        </div>
+        <div>
+
+            <p>Charte Cookies</p>
+            <p>Informations légales</p>
+            <p>Gestion des consentements cookies</p>
+        </div>
+
+    </footer>
 {% endblock %}
