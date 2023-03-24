@@ -77,7 +77,8 @@ class AppController extends AbstractController
 
 
     #[Route('/slope/{id}', name: 'app_slope')]
-    public function slope($id, SlopeRepository $slopeRepository): Response
+
+    public function slope($id, SlopeRepository $slopeRepository, DomainRepository $domainRepository): Response
     {
         $slope = $slopeRepository->find($id);
 
@@ -86,6 +87,7 @@ class AppController extends AbstractController
         }
 
         return $this->render('app/slope.html.twig', [
+            'domains' => $domainRepository->findAll(),
             'slope' => $slope,
         ]);
     }
