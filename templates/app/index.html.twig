@@ -161,8 +161,49 @@
 
     .grid{
         display: grid;
-        repeat()
+
     }
+
+
+
+        .logo {
+            width: 100px;
+            object-fit: contain;
+        }
+        footer {
+            display: flex;
+            justify-content: space-between;
+            background-color: #151D53;
+            padding: 1rem;
+            border-top: #0dcaf0;
+        }
+        footer>div>p {
+            color: white;
+            margin: 1rem;
+        }
+        footer>ul>li {
+            list-style: none;
+            color: white;
+            margin: 1rem;
+        }
+        footer>ul>li>a {
+            text-decoration: none;
+            color: white;
+        }
+
+        @media screen and (max-width: 768px) {
+            footer {
+                flex-wrap: wrap;
+                flex-direction: column;
+                align-items: center;
+            }
+            footer > ul, footer > div {
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+
 
 
 
@@ -200,6 +241,32 @@
             {% endfor %}
         </ul>
 
+
+    <footer>
+        <img class="logo" src="/uploads/logo.png" alt="">
+        <ul>
+            {% for domain in domains %}
+                <li>
+                    <a href="{{ path('app_domain',{'id':domain.id}) }}">
+                        {{ domain.name }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+        <div>
+            <p>INFORMATIONS LEGALES</p>
+            <p>Formulaire réglementaire d’information sur les droits des voyageurs</p>
+            <p>Conditions de vente et Erratum</p>
+            <p>Charte de Protection des Données</p>
+        </div>
+        <div>
+
+            <p>Charte Cookies</p>
+            <p>Informations légales</p>
+            <p>Gestion des consentements cookies</p>
+        </div>
+
+    </footer>
 
 
 
