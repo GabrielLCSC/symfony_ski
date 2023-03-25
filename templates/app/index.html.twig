@@ -242,6 +242,9 @@
         <div></div>
     <p><img src='{{ asset('uploads/logo.png') }}' alt='logo'>Rhône-Alpes</p>
         <h2><a href="{{ path('app_logout') }}">Déconnexion</a></h2>
+        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN') %}
+            <h2><a href="{{ path('admin') }}">Espace Admin</a></h2>
+        {% endif %}
 
     </header>
 

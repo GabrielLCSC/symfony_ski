@@ -107,12 +107,10 @@
         .shesh>a{
             text-decoration: none;
             color: white;
-
         }
 
         .uwu{
             margin: 1rem;
-
         }
 
         .uwu>a>button{
@@ -144,8 +142,6 @@
             align-items: center;
             font-size: 40px;
             color: #023E8A;
-
-
         }
 
 
@@ -155,7 +151,6 @@
             padding: 1rem 1.5rem;
             border-radius: 25px;
             transition: 0.3s all ease 0s;
-
         }
 
         header>h2:hover{
@@ -177,7 +172,6 @@
             align-items: center;
             height: 88vh;
             width: 100%;
-
         }
 
         .centered-text {
@@ -185,7 +179,6 @@
             color: #fff;
             font-weight: 800;
             text-shadow: 2px 3px 2px #000000;
-
         }
 
         .card{
@@ -196,9 +189,6 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-
-
-
         }
 
 
@@ -208,7 +198,6 @@
             height: 172px;
             border-radius: 20px;
             margin-top: 12px;
-
         }
 
         .card>h1{
@@ -216,8 +205,6 @@
             color:#023E8A;
             font-size: 20px;
             padding: 1rem;
-
-
         }
 
 
@@ -348,6 +335,11 @@
         <div></div>
         <p><img src='{{ asset('uploads/logo.png') }}' alt='logo'>Rhône-Alpes</p>
         <h2><a href="{{ path('app_logout') }}">Déconnexion</a></h2>
+        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN') %}
+            <h2><a href="{{ path('admin') }}">Espace Admin</a></h2>
+        {% endif %}
+
+
 
     </header>
 

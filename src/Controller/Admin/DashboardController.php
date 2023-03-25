@@ -26,10 +26,10 @@ class DashboardController extends AbstractDashboardController
             $adminUrlGenerator = $this->container->get(AdminUrlGenerator::class);
             return $this->redirect($adminUrlGenerator->setController(DomainCrudController::class)->generateUrl());
         } else if ($this->isGranted('ROLE_ADMIN')) {
-            // If the user has the ROLE_ADMIN role, redirect to their own Station entity
+            // If the user has the ROLE_ADMIN role, redirect to the admin page 
             $user = $this->getUser();
             $adminUrlGenerator = $this->container->get(AdminUrlGenerator::class);
-            // return $this->redirect($adminUrlGenerator->setController(StationCrudController::class)->setAction('detail')->setEntityId($user->getStation()->getId())->generateUrl());
+            return $this->redirect($adminUrlGenerator->setController(StationCrudController::class)->generateUrl());
         } else {
             // If the user doesn't have the required roles, show an error message
             throw $this->createAccessDeniedException();
