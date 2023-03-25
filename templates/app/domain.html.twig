@@ -1,135 +1,317 @@
-
-
 {% extends 'base.html.twig' %}
 
-{% block title %}Station de {{ domain.name }}{% endblock %}
+{% block title %}Hello AppController!{% endblock %}
 
 {% block body %}
-    <style>
-        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif;
+<script type="text/javascript" src="https://click123.ca/dist/js/snow.js"></script>
+<body>
+
+
+
+<script src="script.js"></script>
+<script>
+    function fadeOutSnowflakes() {
+        // Parcourir les éléments avec un ID allant de "dot0" à "dot9"
+        for (let i = 0; i < 10; i++) {
+            const dotId = 'dot' + i;
+            const dot = document.getElementById(dotId);
+
+            // Si l'élément existe, appliquer une transition de fondu
+            if (dot) {
+                dot.style.transition = 'opacity 1s';
+                dot.style.opacity = 0;
+
+                // Supprimer l'élément après la fin de la transition
+                setTimeout(function() {
+                    dot.parentNode.removeChild(dot);
+                }, 1000);
+            }
         }
+    }
 
-        *{
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+    // Appeler la fonction après 2 secondes
+    setTimeout(fadeOutSnowflakes, 2000);
+
+</script>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Poppins:wght@400;500;700&display=swap');
+
+
+
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    header{
+        width:100%;
+        display:flex;
+        justify-content:space-around;
+        align-items: center;
+        box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.39);
+
+
+
+
+
+
+
+
+
+
+    }
+
+    header>img{
+        width: fit-content;
+        height: fit-content;
+    }
+
+    header>p{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 40px;
+        color: #023E8A;
+
+
+    }
+
+    @media screen and (max-width:600px){
+        header>p{
+            font-size:25px ;
         }
+    }
 
-        .flex {
-            display: flex;
-            justify-content: space-between;
-            background-color: #151D53;
-            padding: 1rem;
-            border-bottom: #0dcaf0;
+
+    header>h2{
+        background-color: #023E8A;
+        color: white;
+        padding: 1rem 1.5rem;
+        border-radius: 25px;
+        transition: 0.3s all ease 0s;
+
+    }
+
+    header>h2:hover{
+
+        transition: 0.3s all ease 0s;
+        letter-spacing: 2px;
+        opacity: 0.8;
+    }
+
+    header>h2>a{
+        color: white;
+        text-decoration: none;
+    }
+
+    .fullscreen-bg {
+        background: url({{ asset('uploads/background.png') }}) no-repeat center center fixed;
+        background-size: cover;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 88vh;
+        width: 100%;
+
+    }
+
+    .centered-text {
+        text-align: center;
+        color: #fff;
+        font-weight: 800;
+        text-shadow: 2px 3px 2px #000000;
+
+    }
+
+    .card{
+        width: 332px;
+        height: 360px;
+        border-radius: 20px;
+        box-shadow: -3px 7px 22px rgba(0, 0, 0, 0.25);
+        padding:1rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        margin: 2rem;
+
+    }
+
+
+
+    .card>div>img{
+        width: 304px;
+        height: 172px;
+        border-radius: 20px;
+
+
+    }
+
+    .card>h1{
+        font-weight: 500;
+        color:#023E8A;
+        font-size: 20px;
+        padding: 1rem;
+
+
+    }
+
+    .button{
+        width: 300px;
+    }
+
+    .card>div>a>button{
+        background:#00B4D8;
+        padding: 1rem;
+        color: white;
+        font-weight: 700;
+        border-radius: 20px;
+        border: none;
+        width: 80%;
+        margin-top: 30px;
+        margin-left: 30px;
+        font-size: 20px;
+
+
+    }
+
+    button{
+        cursor:pointer;
+        transition: 0.3s all ease 0s;
+    }
+
+    button:hover{
+        transition: 0.3s all ease 0s;
+        letter-spacing: 2px;
+        opacity: 0.8;
+    }
+
+    .grid{
+        display: grid;
+        grid-template-columns: repeat(auto-fill,332px);
+        column-gap: 5em;
+        row-gap: 1rem;
+        justify-content: center;
+        margin: auto;
+        padding: 1rem;
+
+    }
+
+
+
+    .logo {
+        width: 100px;
+        object-fit: contain;
+    }
+    footer {
+        display: flex;
+        justify-content: space-between;
+        background-color: #151D53;
+        padding: 1rem;
+        border-top: #0dcaf0;
+    }
+    footer>div>p {
+        color: white;
+        margin: 1rem;
+    }
+    footer>ul>li {
+        list-style: none;
+        color: white;
+        margin: 1rem;
+    }
+    footer>ul>li>a {
+        text-decoration: none;
+        color: white;
+    }
+
+    @media screen and (max-width: 768px) {
+        footer {
+            flex-wrap: wrap;
+            flex-direction: column;
+            align-items: center;
         }
-
-        h1{
-            color: #efd01d;
-            margin-left: 40px;
+        footer > ul, footer > div {
+            width: 100%;
+            text-align: center;
         }
-        h2{
-            background-color: red;
-            color: white;
-            padding: 10px 30px;
-            border-radius: 30px;
-
-        }
-        h2>a{
-            color: white;
-            text-decoration: none;
-        }
-        h2:hover{
-            transform: scale(1.2,1.2);
-            transition: all 0.3s ease 0s;
-        }
-
-        .ul1{
-            margin: 40px;
-            background-color: #d9be34;
-            color: #0f172a;
-            padding: 1rem;
-            width: fit-content;
-            margin: auto;
+    }
 
 
 
-        }
-
-        .ul1>li{
-            font-size: 1.3em;
-            list-style-type: none;
-        }
-
-        .grid{
-            display: grid;
-            grid-template-columns: repeat(1, 40vw);
-            margin: auto;
-            gap: 20px;
-            justify-content: center;
-            margin-top: 40px;
-
-        }
-
-        .grid>li{
-            list-style-type: none;
-            background-color: #151D53;
-            padding: 1rem;
-
-        }
-        .grid>li>a{
-            display: block;
-            text-decoration: none;
-            color: white;
-        }
-
-        .shesh{
-            margin: 1rem;
-            background-color: gray;
-            padding: 1rem;
-            border-radius: 30px;
-            width: fit-content;
-        }
-        .shesh>a{
-            text-decoration: none;
-            color: white;
-
-        }
-
-        .uwu{
-            margin: 1rem;
-
-        }
-
-        .uwu>a>button{
-            background-color: lightblue;
-            border: none;
-            padding: 1rem;
-            border-radius: 30px;
-            cursor: pointer;
-        }
-
-    </style>
 
 
+</style>
+<header>
+    <div></div>
+    <p><img src='{{ asset('uploads/logo.png') }}' alt='logo'>Rhône-Alpes</p>
+    <h2><a href="{{ path('app_logout') }}">Déconnexion</a></h2>
+    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN') %}
+        <h2><a href="{{ path('admin') }}">Espace Admin</a></h2>
+    {% endif %}
 
-    <div class="flex"><h1>Toutes les stations du {{ domain.name }}</h1><h2><a href="{{ path('app_logout') }}">Déconnexion</a></h2></div>
-    <p class="shesh"><a href="{{ path('app_index') }}">Retour aux domaines</a></p>
+</header>
 
-
-    <div class="example-wrapper grid">
-
-        <ul class="grid">
-            {% for station in domain.stations %}
-                <li>
-                    <a href="{{ path('app_station', {'id': station.id}) }}">
-                        {{ station.name }}
-                    </a>
-                </li>
-            {% endfor %}
-        </ul>
+<div class="fullscreen-bg">
+    <div class="centered-text">
+        <h1>Ski, plaisir et montagnes vous attendent !</h1>
 
     </div>
+</div>
+
+
+
+
+
+
+
+
+<ul class="grid">
+    {% for station in domain.stations %}
+        <div class="card">
+            <div><img src="{{ asset('uploads/background.png') }}" alt></div>
+            <h1>{{ station.name }}</h1>
+            <div class="button"><a href="{{ path('app_station',{'id':station.id}) }}"><button>Voir plus</button></a></div>
+
+        </div>
+
+
+
+    {% endfor %}
+</ul>
+
+
+<footer>
+    <img class="logo" src="/uploads/logo.png" alt="">
+    <ul>
+        {%for station in domain.stations %}
+        <li>
+            <a href="{{path('app_station',{'id':station.id})}}">
+            {{station.name}}
+            </a>
+        </li>
+        {%endfor%}
+    </ul>
+    <div>
+        <p>INFORMATIONS LEGALES</p>
+        <p>Formulaire réglementaire d’information sur les droits des voyageurs</p>
+        <p>Conditions de vente et Erratum</p>
+        <p>Charte de Protection des Données</p>
+    </div>
+    <div>
+
+        <p>Charte Cookies</p>
+        <p>Informations légales</p>
+        <p>Gestion des consentements cookies</p>
+    </div>
+
+</footer>
+
+
+
+
 
 
 {% endblock %}
