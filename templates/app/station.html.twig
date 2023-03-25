@@ -1,10 +1,11 @@
-
-
 {% extends 'base.html.twig' %}
 
 {% block title %}Toutes les pistes de {{ station.name }}{% endblock %}
-
 {% block body %}
+
+    {# <script src="{{ asset('js/myscript.js') }}"></script> #}
+
+
     <style>
         .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif;
 
@@ -46,9 +47,6 @@
             padding: 1rem;
             width: fit-content;
             margin: auto;
-
-
-
         }
 
         .ul1>li{
@@ -68,14 +66,12 @@
             justify-content: center;
             align-content: center;
             margin-top: 40px;
-
         }
 
         .grid>li{
             list-style-type: none;
             background-color: #151D53;
             padding: 1rem;
-
         }
         .grid>li>a{
             display: block;
@@ -94,8 +90,6 @@
             place-items: center;
             margin-top: 40px;
         }
-
-
 
         .shesh{
             margin: 1rem;
@@ -128,7 +122,6 @@
             justify-content:space-around;
             align-items: center;
             box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.39);
-
         }
 
         header>img{
@@ -144,7 +137,6 @@
             color: #023E8A;
         }
 
-
         header>h2{
             background-color: #023E8A;
             color: white;
@@ -154,7 +146,6 @@
         }
 
         header>h2:hover{
-
             transition: 0.3s all ease 0s;
             opacity: 0.8;
         }
@@ -191,7 +182,21 @@
             align-items: center;
         }
 
+        .card.verte {
+            border: green solid 2.5px;
+        }
 
+        .card.bleu {
+            border: blue solid 2.5px;
+        }
+
+        .card.rouge {
+            border: red solid 2.5px;
+        }
+
+        .card.noir {
+            border: black solid 2.5px;
+        }
 
         .card>div>img{
             width: 304px;
@@ -206,9 +211,6 @@
             font-size: 20px;
             padding: 1rem;
         }
-
-
-
 
         button {
             font-size: 25px;
@@ -338,67 +340,52 @@
         {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN') %}
             <h2><a href="{{ path('admin') }}">Espace Admin</a></h2>
         {% endif %}
-
-
-
     </header>
 
     <div class="fullscreen-bg">
         <div class="centered-text">
             <h1>Toutes les pistes de {{ station.name }}</h1>
-
         </div>
     </div>
 
-
-
-
-
-
     <ul class="grid">
         {% for slope in station.slopes %}
-            <div class="card">
+            <div class="card {% if slope.level == 'Rouge' %}rouge{% elseif slope.level == 'Bleu' %}bleu{% elseif slope.level == 'Verte' %}verte{% else %}noir{% endif %}">
                 <div><img src="{{ asset('uploads/background.png') }}" alt></div>
                 <h1>{{ slope.name }}</h1>
                 <div class="button"><a href="{{ path('app_slope', {'id': slope.id}) }}"><button>Voir plus</button></a></div>
-
             </div>
-
         {% endfor %}
     </ul>
 
-
-
-
-        <div class="container-station">
-            <h2>Les remontées de la station : {{ lift.station.name }}</h2>
-            <ul>
-                {% for l in lift.station.lifts %}
-                {% if l.id != lift.id %}
-                <li>{{ l.name }}</li>
-                <li>Type: {{ l.type }}</li>
-                {% if l.isopen %}
-                    <li>Remontée Ouverte: Oui</li>
-                {% else %}
-                    <li>Remontée Ouverte: Non</li>
-                {% endif %}
-                <li>Message: {{ l.message }}</li>
-                    {% if l.isseason %}
-                        <li>Saison : Saison des ski</li>
-                        {% if l.isopen %}
-                            <li>Ouvert de {{ l.opening|date('H:i') }} à {{ l.closing|date('H:i') }}</li>
-                        {% else %}
-                            <li>Fermé</li>
-                        {% endif %}
+    <div class="container-station">
+        <h2>Les remontées de la station : {{ lift.station.name }}</h2>
+        <ul>
+            {% for l in lift.station.lifts %}
+            {% if l.id != lift.id %}
+            <li>{{ l.name }}</li>
+            <li>Type: {{ l.type }}</li>
+            {% if l.isopen %}
+                <li>Remontée Ouverte: Oui</li>
+            {% else %}
+                <li>Remontée Ouverte: Non</li>
+            {% endif %}
+            <li>Message: {{ l.message }}</li>
+                {% if l.isseason %}
+                    <li>Saison : Saison des ski</li>
+                    {% if l.isopen %}
+                        <li>Ouvert de {{ l.opening|date('H:i') }} à {{ l.closing|date('H:i') }}</li>
                     {% else %}
-                        <li>Saison : Saison hors ski</li>
                         <li>Fermé</li>
                     {% endif %}
+                {% else %}
+                    <li>Saison : Saison hors ski</li>
+                    <li>Fermé</li>
                 {% endif %}
-                {% endfor %}
-            </ul>
-
-        </div>
+            {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
 
     <footer>
         <img class="logo" src="/uploads/logo.png" alt="">
@@ -418,12 +405,10 @@
             <p>Charte de Protection des Données</p>
         </div>
         <div>
-
             <p>Charte Cookies</p>
             <p>Informations légales</p>
             <p>Gestion des consentements cookies</p>
         </div>
-
     </footer>
 
 {% endblock %}
