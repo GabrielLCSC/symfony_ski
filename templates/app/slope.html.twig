@@ -10,12 +10,26 @@
         box-sizing: border-box;
         font-family: 'Poppins', sans-serif;
     }
+
+    li{
+        list-style: none;
+        margin-bottom: 15px;
+    }
+
     header{
         width:100%;
         display:flex;
-        justify-content:center;
+        justify-content:space-around;
         align-items: center;
         box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.39);
+
+
+
+
+
+
+
+
 
 
     }
@@ -33,6 +47,35 @@
         font-size: 40px;
         color: #023E8A;
 
+
+    }
+
+    @media screen and (max-width:600px){
+        header>p{
+            font-size:25px ;
+        }
+    }
+
+
+    header>h2{
+        background-color: #023E8A;
+        color: white;
+        padding: 1rem 1.5rem;
+        border-radius: 25px;
+        transition: 0.3s all ease 0s;
+
+    }
+
+    header>h2:hover{
+
+        transition: 0.3s all ease 0s;
+        letter-spacing: 2px;
+        opacity: 0.8;
+    }
+
+    header>h2>a{
+        color: white;
+        text-decoration: none;
     }
 
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
@@ -50,21 +93,17 @@
         color: #efd01d;
         margin-left: 40px;
     }
-    h2{
-        background-color: red;
-        color: white;
+    .title-station{
+        color: #000000;
         padding: 10px 30px;
-        border-radius: 30px;
-
+        border-radius: 15px;
+        margin-bottom: 50px;
     }
     h2>a{
         color: white;
         text-decoration: none;
     }
-    h2:hover{
-        transform: scale(1.2,1.2);
-        transition: all 0.3s ease 0s;
-    }
+
 
     .shesh{
         margin: 1rem;
@@ -114,31 +153,103 @@
             text-align: center;
         }
     }
+    .li-closed{
+        font-size: 16px;
+        font-weight: bold;
+        border-radius: 9px;
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        display: inline;
+        background-color: #ff0000;
+        color: white;
+    }
+    .li-open{
+        font-size: 16px;
+        font-weight: bold;
+        border-radius: 9px;
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        display: inline;
+        background-color: #00bb1d;
+        color: white;
+    }
+    .list {
+        margin-top: 100px;
+        margin-bottom: 100px    ;
+    }
+    .horaires{
+        gap: 5px;
+        display: flex;
+    }
+    .clock{
+        font-weight: bold;
+    }
+
+    .slopes{
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        justify-content: center;
+        align-items: center;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    .slope{
+        padding: 10px;
+        text-align: center;
+    }
+
+    .slope>a{
+        text-decoration: none;
+        color: black;
+        transition: ease 0.3s;
+    }
+
+    .slope>a:hover{
+        text-decoration: none;
+        color: #0080ff;
+    }
+
+    @media (max-width: 767px) {
+        .slopes {
+            grid-template-columns: repeat(1, 1fr);
+        }
+    }
+
+    @media (min-width: 768px) and (max-width: 991px) {
+        .slopes {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
 
 </style>
 
 
     <header>
         <p><img src='{{ asset('uploads/logo.png') }}' alt='logo'>Rhône-Alpes</p>
-
+        <h2><a href="{{ path('app_logout') }}">Déconnexion</a></h2>
     </header>
-    <h2><a href="{{ path('app_logout') }}">Déconnexion</a></h2></div>
+
     <p class="shesh"><a href="{{ path('app_station', {'id': slope.station.id}) }}">Retour aux pistes</a></p>
 
 <div class="example-wrapper">
-    <ul>
-        <li>Type: {{ slope.type }}</li>
-        <li>Niveau: {{ slope.level }}</li>
+    <ul class="list">
+        <li>Type : {{ slope.type }}</li>
+        <li>Niveau : {{ slope.level }}</li>
         {% if slope.isopen %}
-            <li>Piste Ouverte: Oui</li>
+            <li class="li-open">Piste Ouverte : Oui</li>
         {% else %}
-            <li>Piste Ouverte: Non</li>
+            <li class="li-closed">Piste Ouverte : Non</li>
         {% endif %}
-        <li>Message: {{ slope.message }}</li>
+        <li>Message : {{ slope.message }}</li>
         {% if slope.isseason %}
             <li>Saison : Saison des ski</li>
             {% if slope.isopen %}
-                <li>Ouvert de {{ slope.opening|date('H:i') }} à {{ slope.closing|date('H:i') }}</li>
+                <li class="horaires">Ouvert de <p class="clock"> {{ slope.opening|date('H:i') }}</p> à <p class="clock">{{ slope.closing|date('H:i') }}</p></li>
             {% else %}
                 <li>Fermé</li>
             {% endif %}
@@ -148,11 +259,11 @@
         {% endif %}
     </ul>
 
-    <h2>Autre pistes de la station : {{ slope.station.name }} </h2>
-    <ul>
+    <h2 class="title-station">Autre pistes de la station : {{ slope.station.name }} </h2>
+    <ul class="slopes">
         {% for s in slope.station.slopes %}
             {% if s.id != slope.id %}
-                <li>
+                <li class="slope">
                     <a href="{{ path('app_slope', {'id': s.id}) }}">
                         {{ s.name }}
                     </a>
@@ -166,7 +277,7 @@
         <img class="logo" src="/uploads/logo.png" alt="">
         <ul>
             {% for domain in domains %}
-                <li>
+                <li >
                     <a href="{{ path('app_domain',{'id':domain.id}) }}">
                         {{ domain.name }}
                     </a>
