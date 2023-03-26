@@ -79,6 +79,7 @@
         }
 
         .btn_domain{
+            margin: 5px;
             background-color: #023E8A;
             color: white;
             padding: 1rem 1.5rem;
@@ -209,6 +210,10 @@
             flex-wrap: wrap;
         }
 
+        .top{
+            margin-top: 5vh;
+        }
+
         @media screen and (max-width: 768px) {
             footer {
                 flex-wrap: wrap;
@@ -227,7 +232,9 @@
         <div></div>
         <p><img src='{{ asset('uploads/logo.png') }}' alt='logo'>Rhône-Alpes</p>
         <h2><a href="{{ path('app_logout') }}">Déconnexion</a></h2>
-
+        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN') %}
+            <h2><a href="{{ path('admin') }}">Espace Admin</a></h2>
+        {% endif %}
     </header>
 
 
@@ -241,8 +248,10 @@
 
 
 
-    <div class="">
-        <p class=""><a href="{{ path('app_index') }}" class="btn_domain">Retour aux domaines</a></p>
+    <div class="top">
+        <div>
+            <p class=""><a href="{{ path('app_index') }}" class="btn_domain">Retour aux domaines</a></p>
+        </div>
 
         <ul class="flux">
             {% for station in domain.stations %}

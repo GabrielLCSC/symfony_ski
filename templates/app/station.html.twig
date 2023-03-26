@@ -320,6 +320,23 @@
             color: white;
         }
 
+        .btn_domain{
+            margin: 5px;
+            background-color: #023E8A;
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 25px;
+            transition: 0.3s all ease 0s;
+            letter-spacing: 2px;
+            opacity: 0.8;
+            text-decoration: none;
+
+        }
+
+        .top{
+            margin-top: 5vh;
+        }
+
         @media screen and (max-width: 768px) {
             footer {
                 flex-wrap: wrap;
@@ -346,6 +363,10 @@
         <div class="centered-text">
             <h1>Toutes les pistes de {{ station.name }}</h1>
         </div>
+    </div>
+
+    <div class="top">
+        <p class=""><a href="{{ path('app_domain', {'id': station.domain.id}) }}" class="btn_domain">Retour aux stations </a></p>
     </div>
 
     <ul class="grid">
