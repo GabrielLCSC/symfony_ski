@@ -41,6 +41,7 @@ class AppController extends AbstractController
         ]);
     }
 
+
     #[Route('/station/{id}', name: 'app_station')]
     public function station($id, StationRepository $stationRepository, LiftRepository $liftRepository,DomainRepository $domainRepository): Response
     {

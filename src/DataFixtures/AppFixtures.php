@@ -83,41 +83,41 @@ class AppFixtures extends Fixture
         // Create domains
         $espaceDiamant = new Domain();
         $espaceDiamant->setName('Espace Diamant');
-        $espaceDiamant->setLogo('https://picsum.photos/200/300');
+        $espaceDiamant->setLogo('https://picsum.photos/id/260/200/300');
         $manager->persist($espaceDiamant);
 
         // Create stations
         $station1 = new Station();
         $station1->setName('Les Saisies');
-        $station1->setLogo('https://example.com/les-saisies-logo.png');
+        $station1->setLogo('https://picsum.photos/id/256/200/300');
         $station1->setDomain($espaceDiamant);
         $station1->setUser($lesSaisiesAdmin);
         $manager->persist($station1);
 
         $station2 = new Station();
         $station2->setName('Crest-Voland Cohennoz');
-        $station2->setLogo('https://example.com/crest-voland-cohennoz-logo.png');
+        $station2->setLogo('https://picsum.photos/id/256/200/300');
         $station2->setDomain($espaceDiamant);
         $station2->setUser($crestVolandAdmin);
         $manager->persist($station2);
 
         $station3 = new Station();
         $station3->setName('Notre-Dame-de-Bellecombe');
-        $station3->setLogo('https://example.com/notre-dame-de-bellecombe-logo.png');
+        $station3->setLogo('https://picsum.photos/id/256/200/300');
         $station3->setDomain($espaceDiamant);
         $station3->setUser($notreDameDeBellecombeAdmin);
         $manager->persist($station3);
 
         $station4 = new Station();
         $station4->setName('Praz-sur-Arly');
-        $station4->setLogo('https://example.com/praz-sur-arly-logo.png');
+        $station4->setLogo('https://picsum.photos/id/256/200/300');
         $station4->setDomain($espaceDiamant);
         $station4->setUser($prazSurArlyAdmin);
         $manager->persist($station4);
 
         $station5 = new Station();
         $station5->setName('Flumet');
-        $station5->setLogo('https://example.com/flumet-logo.png');
+        $station5->setLogo('https://picsum.photos/id/256/200/300');
         $station5->setDomain($espaceDiamant);
         $station5->setUser($flumetAdmin);
         $manager->persist($station5);
@@ -127,36 +127,38 @@ class AppFixtures extends Fixture
         $station = $manager->getRepository(Station::class);
         $stations = $station->findAll();
 
+        // Create slopes
         for ($i = 0; $i <= 50; $i++) {
             $slope = new Slope();
             $slope->setName('Piste ' . $i);
             $slope->setStation($stations[rand(0, 4)]);
             $slope->setType(['Alpine', 'Nordique'][rand(0, 1)]);
-            $slope->setLevel(['Rouge', 'Blue', 'Noir', 'Verte'][rand(0, 3)]);
+            $slope->setLevel(['Rouge', 'Bleu', 'Noir', 'Verte'][rand(0, 3)]);
             $isSeason = [true, false][rand(0, 1)];
+            $isOpen = $isSeason ? [true, false][rand(0, 1)] : false;
             $slope->setIsSeason($isSeason);
-            $slope->setIsOpen($isSeason ? [true, false][rand(0, 1)] : false);
-            $slope->setMessage('Message ' . $i);
+            $slope->setIsOpen($isOpen);
+            $slope->setMessage($isOpen ? 'Message ' : 'Fermeture exceptionnelle - Manque d’enneigement');
             $slope->setOpening(new \DateTime('08:30:01'));
             $slope->setClosing(new \DateTime('18:30:01'));
 
             $manager->persist($slope);
         }
-        
-        $manager->flush();
-        
+
+        // Create lifts
         for ($i = 0; $i <= 30; $i++) {
             $lift = new Lift();
             $lift->setName('Remontée ' . $i);
             $lift->setStation($stations[rand(0, 4)]);
             $lift->setType(['Télésièges', 'Télécabines', 'Téléski', 'Télécorde'][rand(0, 3)]);
             $isSeason = [true, false][rand(0, 1)];
+            $isOpen = $isSeason ? [true, false][rand(0, 1)] : false;
             $lift->setIsSeason($isSeason);
-            $lift->setIsOpen($isSeason ? [true, false][rand(0, 1)] : false);
-            $lift->setMessage('Message ' . $i);
-            $lift->setOpening(new \DateTime('08:30:01'));
-            $lift->setClosing(new \DateTime('18:30:01'));
-        
+            $lift->setIsOpen($isOpen);
+            $lift->setMessage($isOpen ? 'Message ' : 'Fermé pour cause de grand vents');
+            $lift->setOpening(new \DateTime('08:30:00'));
+            $lift->setClosing(new \DateTime('18:30:00'));
+
             $manager->persist($lift);
         }
         

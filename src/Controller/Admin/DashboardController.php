@@ -39,24 +39,26 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('Rhone Alpes');
+            ->setTitle('Rhone-Alpes Ski ⛷️');
     }
 
     public function configureMenuItems(): iterable
     {
         // Define the menu items for the ROLE_SUPER_ADMIN role
         if ($this->isGranted('ROLE_SUPER_ADMIN')) {
-            yield MenuItem::linkToCrud('Domain', 'fa fa-home', Domain::class);
-            yield MenuItem::linkToCrud('Station', 'fa fa-cat', Station::class);
-            yield MenuItem::linkToCrud('User', 'fa fa-home', User::class);
-            yield MenuItem::linkToCrud('Slope', 'fa fa-home', Slope::class);
-            yield MenuItem::linkToCrud('Lift', 'fa fa-home', Lift::class);
+            yield MenuItem::linkToCrud('Domain', 'fa fa-list', Domain::class);
+            yield MenuItem::linkToCrud('Station', 'fa fa-list', Station::class);
+            yield MenuItem::linkToCrud('User', 'fa fa-list', User::class);
+            yield MenuItem::linkToCrud('Slope', 'fa fa-list', Slope::class);
+            yield MenuItem::linkToCrud('Lift', 'fa fa-list', Lift::class);
         }
 
         // Define the menu item for the ROLE_ADMIN role
         if ($this->isGranted('ROLE_ADMIN')) {
             $user = $this->getUser();
-            // yield MenuItem::linkToRoute('My Station', 'fa fa-station', 'admin', ['entity' => 'Station', 'action' => 'detail', 'id' => $user->getStation()->getId()]);
+            yield MenuItem::linkToCrud('Station', 'fa fa-list', Station::class);
+            yield MenuItem::linkToCrud('Slope', 'fa fa-list', Slope::class);
+            yield MenuItem::linkToCrud('Lift', 'fa fa-list', Lift::class);
         }
     }
 

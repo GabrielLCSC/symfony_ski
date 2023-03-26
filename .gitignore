@@ -9,5 +9,8 @@
 /vendor/
 ###< symfony/framework-bundle ###
 
-public/uploads/categories
-!public/uploads/categories/.gitkeep
+public/uploads/domain
+!public/uploads/domain/.gitkeep
+
+public/uploads/station
+!public/uploads/station/.gitkeep
