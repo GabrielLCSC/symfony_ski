@@ -1,8 +1,6 @@
-
-
 {% extends 'base.html.twig' %}
 
-{% block title %}Station de {{ domain.name }}{% endblock %}
+{% block title %}Hello AppController!{% endblock %}
 
 {% block body %}
     <style>
@@ -14,7 +12,9 @@
             margin: 0;
             padding: 0;
             font-family: 'Poppins', sans-serif;
+
         }
+
 
         header{
             width:100%;
@@ -220,8 +220,8 @@
                 text-align: center;
             }
         }
-
     </style>
+
 
     <header>
         <div></div>
@@ -229,6 +229,8 @@
         <h2><a href="{{ path('app_logout') }}">Déconnexion</a></h2>
 
     </header>
+
+
 
     <div class="fullscreen-bg">
         <div class="centered-text">
@@ -239,10 +241,8 @@
 
 
 
-    <p class=""><a href="{{ path('app_index') }}" class="btn_domain">Retour aux domaines</a></p>
-
-
     <div class="">
+        <p class=""><a href="{{ path('app_index') }}" class="btn_domain">Retour aux domaines</a></p>
 
         <ul class="flux">
             {% for station in domain.stations %}
@@ -255,36 +255,41 @@
                 </li>
             {% endfor %}
         </ul>
-
     </div>
 
 
 
-    <footer>
-        <img class="logo" src="/uploads/logo.png" alt="">
-        <ul>
-            {% for station in domain.stations %}
-                <li>
-                    <a href="{{ path('app_station',{'id':station.id}) }}">
-                        {{ station.name }}
-                    </a>
-                </li>
-            {% endfor %}
-        </ul>
-        <div>
-            <p>INFORMATIONS LEGALES</p>
-            <p>Formulaire réglementaire d’information sur les droits des voyageurs</p>
-            <p>Conditions de vente et Erratum</p>
-            <p>Charte de Protection des Données</p>
-        </div>
-        <div>
 
-            <p>Charte Cookies</p>
-            <p>Informations légales</p>
-            <p>Gestion des consentements cookies</p>
-        </div>
+<footer>
+    <img class="logo" src="/uploads/logo.png" alt="">
+    <ul>
+        {%for station in domain.stations %}
+        <li>
+            <a href="{{path('app_station',{'id':station.id})}}">
+            {{station.name}}
+            </a>
+        </li>
+        {%endfor%}
+    </ul>
+    <div>
+        <p>INFORMATIONS LEGALES</p>
+        <p>Formulaire réglementaire d’information sur les droits des voyageurs</p>
+        <p>Conditions de vente et Erratum</p>
+        <p>Charte de Protection des Données</p>
+    </div>
+    <div>
 
-    </footer>
+        <p>Charte Cookies</p>
+        <p>Informations légales</p>
+        <p>Gestion des consentements cookies</p>
+    </div>
+
+</footer>
+
+
+
+
+
 
 
 {% endblock %}

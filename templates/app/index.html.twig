@@ -3,6 +3,38 @@
 {% block title %}Hello AppController!{% endblock %}
 
 {% block body %}
+<script type="text/javascript" src="https://click123.ca/dist/js/snow.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-3WQInM/Ar0RAt1sgQtGkNrtN3Xk6pj3Nl55x61rlzfrpW1hqdTzJhTQlBNGr0MGdYXgT60mB4QzH4Z4M+gBO8w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<body>
+
+
+
+<script src="script.js"></script>
+<script>
+    function fadeOutSnowflakes() {
+        // Parcourir les éléments avec un ID allant de "dot0" à "dot9"
+        for (let i = 0; i < 10; i++) {
+            const dotId = 'dot' + i;
+            const dot = document.getElementById(dotId);
+
+            // Si l'élément existe, appliquer une transition de fondu
+            if (dot) {
+                dot.style.transition = 'opacity 1s';
+                dot.style.opacity = 0;
+
+                // Supprimer l'élément après la fin de la transition
+                setTimeout(function() {
+                    dot.parentNode.removeChild(dot);
+                }, 1000);
+            }
+        }
+    }
+
+    // Appeler la fonction après 2 secondes
+    setTimeout(fadeOutSnowflakes, 2000);
+
+</script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Poppins:wght@400;500;700&display=swap');
 
@@ -203,15 +235,102 @@
             }
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
 
 
+        #retour-haut {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            font-size: 24px;
+            line-height: 50px;
+            z-index: 9999;
+            cursor: pointer;
+        }
 
+        #retour-haut:hover {
+            background-color: #666;
+        }
 
+        #retour-haut.show {
+            display: block;
+        }
+
+        #retour-haut span {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        #retour-haut.show {
+            -webkit-animation: fadeIn 0.3s;
+            animation: fadeIn 0.3s;
+        }
+
+        #retour-haut.hide {
+            -webkit-animation: fadeOut 0.3s;
+            animation: fadeOut 0.3s;
+        }
+
+        @-webkit-keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @-webkit-keyframes fadeOut {
+            from { opacity: 1; transform: translateY(0); }
+            to { opacity: 0; transform: translateY(10px); }
+        }
+
+        @keyframes fadeOut {
+            from { opacity: 1; transform: translateY(0); }
+            to { opacity: 0; transform: translateY(10px); }
+        }
+
+        .tele{
+            display: flex;
+            justify-content: end;
+            margin-right: 5vw;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .tele::before{
+            content: "";
+            display: block;
+            width: 40px;
+            height: 40px;
+            background-image: url("{{asset("uploads/fleche.png")}}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+            left: 60px;
+            bottom:40px;
+        }
     </style>
-    <header>
+    <header id="top">
         <div></div>
     <p><img src='{{ asset('uploads/logo.png') }}' alt='logo'>Rhône-Alpes</p>
         <h2><a href="{{ path('app_logout') }}">Déconnexion</a></h2>
+        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN') %}
+            <h2><a href="{{ path('admin') }}">Espace Admin</a></h2>
+        {% endif %}
 
     </header>
 
@@ -241,6 +360,8 @@
             {% endfor %}
         </ul>
 
+
+<div class="tele"><a href="#top" style="scroll-behavior: smooth;"><img src="{{ asset("/uploads/tele.png") }}" alt> </a></div>
 
     <footer>
         <img class="logo" src="/uploads/logo.png" alt="">

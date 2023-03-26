@@ -1,10 +1,11 @@
-
-
 {% extends 'base.html.twig' %}
 
 {% block title %}Toutes les pistes de {{ station.name }}{% endblock %}
-
 {% block body %}
+
+    {# <script src="{{ asset('js/myscript.js') }}"></script> #}
+
+
     <style>
         .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif;
 
@@ -15,6 +16,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
         }
         .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
         .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
@@ -26,12 +28,8 @@
             border-bottom: #0dcaf0;
         }
 
-        h1{
-            color: #efd01d;
-            margin-left: 40px;
-        }
         h2{
-            background-color: red;
+            background:#00B4D8;
             color: white;
             padding: 10px 30px;
             border-radius: 30px;
@@ -41,10 +39,6 @@
             color: white;
             text-decoration: none;
         }
-        h2:hover{
-            transform: scale(1.2,1.2);
-            transition: all 0.3s ease 0s;
-        }
 
         .ul1{
             margin: 40px;
@@ -53,9 +47,6 @@
             padding: 1rem;
             width: fit-content;
             margin: auto;
-
-
-
         }
 
         .ul1>li{
@@ -63,26 +54,41 @@
             list-style-type: none;
         }
 
+        li {
+            list-style-type: none;
+        }
+
         .grid{
             display: grid;
-            grid-template-columns: repeat(1, 40vw);
+            grid-template-columns: repeat(3, 1fr);
             margin: auto;
             gap: 20px;
             justify-content: center;
+            align-content: center;
             margin-top: 40px;
-
         }
 
         .grid>li{
             list-style-type: none;
             background-color: #151D53;
             padding: 1rem;
-
         }
         .grid>li>a{
             display: block;
             text-decoration: none;
             color: white;
+        }
+
+        .grid{
+            display: grid;
+            grid-template-columns:  repeat(auto-fill, 400px);
+            margin: auto;
+            gap: 20px;
+            row-gap: 100px;
+            justify-content: center;
+            align-content: center;
+            place-items: center;
+            margin-top: 40px;
         }
 
         .shesh{
@@ -95,12 +101,10 @@
         .shesh>a{
             text-decoration: none;
             color: white;
-
         }
 
         .uwu{
             margin: 1rem;
-
         }
 
         .uwu>a>button{
@@ -110,51 +114,301 @@
             border-radius: 30px;
             cursor: pointer;
         }
+
+
+        header{
+            width:100%;
+            display:flex;
+            justify-content:space-around;
+            align-items: center;
+            box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.39);
+        }
+
+        header>img{
+            width: fit-content;
+            height: fit-content;
+        }
+
+        header>p{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 40px;
+            color: #023E8A;
+        }
+
+        header>h2{
+            background-color: #023E8A;
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 25px;
+            transition: 0.3s all ease 0s;
+        }
+
+        header>h2:hover{
+            transition: 0.3s all ease 0s;
+            opacity: 0.8;
+        }
+
+        header>h2>a{
+            color: white;
+            text-decoration: none;
+        }
+
+        .fullscreen-bg {
+            background: url({{ asset('uploads/background_station.png') }}) no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 88vh;
+            width: 100%;
+        }
+
+        .centered-text {
+            text-align: center;
+            color: #fff;
+            font-weight: 800;
+            text-shadow: 2px 3px 2px #000000;
+        }
+
+        .card{
+            width: 332px;
+            height: 360px;
+            border-radius: 20px;
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .card.verte {
+            border: green solid 2.5px;
+        }
+
+        .card.bleu {
+            border: blue solid 2.5px;
+        }
+
+        .card.rouge {
+            border: red solid 2.5px;
+        }
+
+        .card.noir {
+            border: black solid 2.5px;
+        }
+
+        .card>div>img{
+            width: 304px;
+            height: 172px;
+            border-radius: 20px;
+            margin-top: 12px;
+        }
+
+        .card>h1{
+            font-weight: 500;
+            color:#023E8A;
+            font-size: 20px;
+            padding: 1rem;
+        }
+
+        button {
+            font-size: 25px;
+            width: 8em;
+            height: 2em;
+            text-align: center;
+            line-height: 2em;
+            font-family: sans-serif;
+            text-transform: capitalize;
+            position: relative;
+            transition: 0.5s;
+            margin: 0.8em;
+            background-color: rgba(13, 94, 66, 0);
+            border: none;
+            cursor: pointer;
+        }
+
+        button::before,
+        button::after {
+            content: '';
+            position: absolute;
+            width: 0.6em;
+            height: 0.6em;
+            background:#00B4D8;
+            border-radius: 50%;
+            transition: 0.5s cubic-bezier(0.5, -0.5, 0.25, 1.5);
+            top: calc(50% - 0.6em / 2);
+        }
+
+        button::before {left: 0; z-index: -1;}
+        button::after {right: 0; z-index: -2;}
+
+        button:hover {
+            color: white;
+        }
+
+        button:hover::before,
+        button:hover::after {
+            width: 100%;
+            height: 100%;
+            border-radius: 0;
+            background:#00B4D8;
+        }
+
+        button:hover::before {
+            top: 0;
+        }
+
+        button:hover::after {
+            right: -0.4em;
+            filter: brightness(0.8);
+        }
+
+
+        .container-station {
+            background-color: #f5f5f5;
+            padding: 2rem;
+            border-radius: 10px;
+            max-width: 800px;
+            margin: 5rem auto;
+        }
+
+        .container-station h2 {
+            font-size: 1.5rem;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .container-station ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .container-station ul li {
+            font-size: 1.1rem;
+            padding: 0.25rem 0;
+        }
+
+        .container-station ul li:nth-child(6n+1) {
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: #023E8A;
+        }
+
+        .logo {
+            width: 100px;
+            object-fit: contain;
+        }
+        footer {
+            display: flex;
+            justify-content: space-between;
+            background-color: #151D53;
+            padding: 1rem;
+            border-top: #0dcaf0;
+        }
+        footer>div>p {
+            color: white;
+            margin: 1rem;
+        }
+        footer>ul>li {
+            list-style: none;
+            color: white;
+            margin: 1rem;
+        }
+        footer>ul>li>a {
+            text-decoration: none;
+            color: white;
+        }
+
+        @media screen and (max-width: 768px) {
+            footer {
+                flex-wrap: wrap;
+                flex-direction: column;
+                align-items: center;
+            }
+            footer > ul, footer > div {
+                width: 100%;
+                text-align: center;
+            }
+        }
     </style>
 
+    <header>
+        <div></div>
+        <p><img src='{{ asset('uploads/logo.png') }}' alt='logo'>Rhône-Alpes</p>
+        <h2><a href="{{ path('app_logout') }}">Déconnexion</a></h2>
+        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN') %}
+            <h2><a href="{{ path('admin') }}">Espace Admin</a></h2>
+        {% endif %}
+    </header>
 
-    <div class="flex"><h1>Toutes les pistes de {{ station.name }}</h1>
-    <h2><a href="{{ path('app_logout') }}">Déconnexion</a></h2></div>
-    <p class="shesh"><a href="{{ path('app_domain', {'id': station.domain.id}) }}">Retour aux stations</a></p>
-    
+    <div class="fullscreen-bg">
+        <div class="centered-text">
+            <h1>Toutes les pistes de {{ station.name }}</h1>
+        </div>
+    </div>
 
-    <div class="example-wrapper grid">
-
+    <ul class="grid">
         {% for slope in station.slopes %}
-            <li>
-                <a href="{{ path('app_slope', {'id': slope.id}) }}">
-                    {{ slope.name }}
-                </a>
-            </li>
+            <div class="card {% if slope.level == 'Rouge' %}rouge{% elseif slope.level == 'Bleu' %}bleu{% elseif slope.level == 'Verte' %}verte{% else %}noir{% endif %}">
+                <div><img src="{{ asset('uploads/background.png') }}" alt></div>
+                <h1>{{ slope.name }}</h1>
+                <div class="button"><a href="{{ path('app_slope', {'id': slope.id}) }}"><button>Voir plus</button></a></div>
+            </div>
         {% endfor %}
+    </ul>
 
-    <h2>Les remontées de la station : {{ lift.station.name }} </h2>
+    <div class="container-station">
+        <h2>Les remontées de la station : {{ lift.station.name }}</h2>
         <ul>
             {% for l in lift.station.lifts %}
-                {% if l.id != lift.id %}
-                    <li>{{ l.name }}</li>
-                    <li>Type: {{ l.type }}</li>
+            {% if l.id != lift.id %}
+            <li>{{ l.name }}</li>
+            <li>Type: {{ l.type }}</li>
+            {% if l.isopen %}
+                <li>Remontée Ouverte: Oui</li>
+            {% else %}
+                <li>Remontée Ouverte: Non</li>
+            {% endif %}
+            <li>Message: {{ l.message }}</li>
+                {% if l.isseason %}
+                    <li>Saison : Saison des ski</li>
                     {% if l.isopen %}
-                        <li>Remontée Ouverte: Oui</li>
+                        <li>Ouvert de {{ l.opening|date('H:i') }} à {{ l.closing|date('H:i') }}</li>
                     {% else %}
-                        <li>Remontée Ouverte: Non</li>
-                    {% endif %}
-                    <li>Message: {{ l.message }}</li>
-                    {% if l.isseason %}
-                        <li>Saison : Saison des ski</li>
-                        {% if l.isopen %}
-                            <li>Ouvert de {{ l.opening|date('H:i') }} à {{ l.closing|date('H:i') }}</li>
-                        {% else %}
-                            <li>Fermé</li>
-                        {% endif %}
-                    {% else %}
-                        <li>Saison : Saison hors ski</li>
                         <li>Fermé</li>
                     {% endif %}
+                {% else %}
+                    <li>Saison : Saison hors ski</li>
+                    <li>Fermé</li>
                 {% endif %}
+            {% endif %}
             {% endfor %}
         </ul>
-        
     </div>
+
+    <footer>
+        <img class="logo" src="/uploads/logo.png" alt="">
+        <ul>
+            {% for domain in domains %}
+                <li>
+                    <a href="{{ path('app_domain',{'id':domain.id}) }}">
+                        {{ domain.name }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+        <div>
+            <p>INFORMATIONS LEGALES</p>
+            <p>Formulaire réglementaire d’information sur les droits des voyageurs</p>
+            <p>Conditions de vente et Erratum</p>
+            <p>Charte de Protection des Données</p>
+        </div>
+        <div>
+            <p>Charte Cookies</p>
+            <p>Informations légales</p>
+            <p>Gestion des consentements cookies</p>
+        </div>
+    </footer>
 
 {% endblock %}
