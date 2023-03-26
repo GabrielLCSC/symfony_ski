@@ -5,6 +5,7 @@
 {% block body %}
 <style>
     *{
+        text-align: center;
         margin: 0;
         padding: 0;
         box-sizing: border-box;
@@ -78,8 +79,6 @@
         text-decoration: none;
     }
 
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 
     .flex {
         display: flex;
@@ -178,8 +177,15 @@
         color: white;
     }
     .list {
-        margin-top: 100px;
-        margin-bottom: 100px    ;
+        padding-left: 20px;
+        padding-right: 20px;
+        padding-top: 20px;
+        border-radius: 9px;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        display: inline-block;
+        gap: 5%;
+        margin-top: 50px;
+        margin-bottom: 50px    ;
     }
     .horaires{
         gap: 5px;
@@ -226,6 +232,10 @@
         }
     }
 
+    .msg{
+        margin-top: 15px;
+    }
+
 </style>
 
 
@@ -236,6 +246,8 @@
 
     <p class="shesh"><a href="{{ path('app_station', {'id': slope.station.id}) }}">Retour aux pistes</a></p>
 
+
+    <h2>{{ slope.name }}</h2>
 <div class="example-wrapper">
     <ul class="list">
         <li>Type : {{ slope.type }}</li>
@@ -245,13 +257,13 @@
         {% else %}
             <li class="li-closed">Piste Ouverte : Non</li>
         {% endif %}
-        <li>Message : {{ slope.message }}</li>
+        <li class="msg">Message : {{ slope.message }}</li>
         {% if slope.isseason %}
             <li>Saison : Saison des ski</li>
             {% if slope.isopen %}
                 <li class="horaires">Ouvert de <p class="clock"> {{ slope.opening|date('H:i') }}</p> à <p class="clock">{{ slope.closing|date('H:i') }}</p></li>
             {% else %}
-                <li>Fermé</li>
+                <li></li>
             {% endif %}
         {% else %}
             <li>Saison : Saison hors ski</li>
