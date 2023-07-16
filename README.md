@@ -1,6 +1,6 @@
 # 🌱 Ski resorts in the Rhône-Alpes region
 
-## ⚗️ Frameworks used
+## ⚗️ Framework used
 - Symfony
 
 ## 📱 Languages used
